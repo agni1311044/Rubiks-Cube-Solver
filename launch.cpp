@@ -6,7 +6,7 @@
 #include "solvers/DFSSolver.h"
 #include "solvers/BFSSolver.h"
 #include "solvers/IDDFSSolver.h"
-#include "solvers/IDAstarSolver.h"
+#include "solvers/IDAStarSolver.h"
 #include "patternDatabase/CornerPatternDatabase.h"
 #include "patternDatabase/CornerDBMaker.h"
 
