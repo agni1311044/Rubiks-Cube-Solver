@@ -262,16 +262,28 @@ int main(int argc, char* argv[]){
     cube.print();
     
     // CHANGED: Use forward slash for Linux Render Server!
-    string s1="Database/cornerDepth5V1.txt";
-    
-    IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube,s1);
-    vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
-    
-    cout << "\nSolution Moves: ";
-    for (auto move: solve_moves) cout << cube.getMove(move) << " ";
-    cout << "\n";
-    
-    idAstarSolver.rubiksCube.print();
+    try {
+        // Make sure this exact capitalization matches your GitHub folder!
+        string s1="Database/cornerDepth5V1.txt"; 
+        
+        IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube,s1);
+        vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
+        
+        cout << "\nSolution Moves: ";
+        for (auto move: solve_moves) cout << cube.getMove(move) << " ";
+        cout << "\n\nSolved Cube:\n";
+        
+        idAstarSolver.rubiksCube.print();
+    }
+    catch (const char* msg) {
+        // This will print the exact custom text error your code threw
+        cout << "\nC++ ERROR CAUGHT: " << msg << "\n";
+    }
+    catch (...) {
+        cout << "\nC++ ERROR CAUGHT: Unknown crash while loading the solver.\n";
+    }
+
+
 
 // // CornerPatternDatabase Testing ---------------------------------------------------------------------------------
 
