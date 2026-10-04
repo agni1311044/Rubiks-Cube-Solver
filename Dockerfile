@@ -7,9 +7,14 @@ RUN apt-get update && apt-get install -y cmake g++ curl
 WORKDIR /app
 COPY . /app
 
-# Create the Database directory and download the real 120MB binary directly
+# Create Database dir and download the binary via curl
 RUN mkdir -p Database
 RUN curl -L -o Database/cornerDepth5V1.bin "https://github.com/agni1311044/Rubiks-Cube-Solver/releases/download/v1.0/cornerDepth5V1.bin"
+
+# --- DIAGNOSTIC CHECK ---
+# This will print the file size in your Render build logs
+RUN ls -lh Database/cornerDepth5V1.bin
+# ------------------------
 
 # Install Flask (our web framework)
 RUN pip install -r requirements.txt
