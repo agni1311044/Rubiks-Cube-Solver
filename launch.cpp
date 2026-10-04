@@ -6,13 +6,13 @@
 #include "solvers/DFSSolver.h"
 #include "solvers/BFSSolver.h"
 #include "solvers/IDDFSSolver.h"
-#include "solvers/IDAstarSolver.h"
+#include "solvers/IDAStarSolver.h"
 #include "patternDatabase/CornerPatternDatabase.h"
 #include "patternDatabase/CornerDBMaker.h"
 
 using namespace std;
 
-int main() {
+int main(){
 //    RB3dArray object3DArray;
 //    RB1dArray object1dArray;
 //    RBBitboard objectBitboard;
@@ -226,19 +226,19 @@ int main() {
 //    iddfsSolver.rubiksCube.print();
 
 // // IDA* SOLVER ---------------------------------------------------------------------------------------------------
-//    RBBitboard cube;
-//    cube.print();
+    RBBitboard cube;
+    cube.print();
 
-//    vector<RubiksCube::MOVE> shuffle_moves = cube.randomShuffleCube(5);
-//    for (auto move: shuffle_moves) cout << cube.getMove(move) << " ";
-//    cout << "\n";
-//    cube.print();
-//     string s1="Database\\cornerDepth5V1.txt";
-//    IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube,s1);
-//    vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
-//    for (auto move: solve_moves) cout << cube.getMove(move) << " ";
-//    cout << "\n";
-//    idAstarSolver.rubiksCube.print();
+    vector<RubiksCube::MOVE> shuffle_moves = cube.randomShuffleCube(5);
+    for (auto move: shuffle_moves) cout << cube.getMove(move) << " ";
+    cout << "\n";
+    cube.print();
+    string s1="Database\\cornerDepth5V1.txt";
+    IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube,s1);
+    vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
+    for (auto move: solve_moves) cout << cube.getMove(move) << " ";
+    cout << "\n";
+    idAstarSolver.rubiksCube.print();
 
 // // CornerPatternDatabase Testing ---------------------------------------------------------------------------------
 
