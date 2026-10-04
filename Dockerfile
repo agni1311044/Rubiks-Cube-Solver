@@ -1,15 +1,18 @@
 FROM python:3.10-slim
 
-# CHANGED: Added git and git-lfs so Docker can download the massive database
-RUN apt-get update && apt-get install -y cmake g++ git git-lfs
+# Install C++ tools, git, and git-lfs
+RUN apt-get update && apt-get install -y cmake g++ git git-lfs curl
 
 # Copy your project files into the server
 WORKDIR /app
 COPY . /app
 
-# CHANGED: Explicitly pull the real 120MB file to replace the Git LFS pointer
-RUN git config --global --add safe.directory /app
-RUN git lfs install && git lfs pull
+# Initialize a temp git repo so git lfs can pull the 120MB database file
+RUN git init && \
+    git lfs install && \
+    git remote add origin https://github.com/agni1311044/Rubiks-Cube-Solver.git && \
+    git config --global --add safe.directory /app && \
+    git lfs pull
 
 # Install Flask (our web framework)
 RUN pip install -r requirements.txt
