@@ -1,6 +1,6 @@
 #include "CornerPatternDatabase.h"
 
-// CornerPatternDatabase::CornerPatternDatabase() : PatternDatabase(88179840) {}
+CornerPatternDatabase::CornerPatternDatabase() : PatternDatabase(88179840) {}
 
 CornerPatternDatabase::CornerPatternDatabase(uint8_t init_val) : PatternDatabase(88179840, init_val) {}
 
