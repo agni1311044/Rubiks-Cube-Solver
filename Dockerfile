@@ -12,6 +12,8 @@ RUN git init && \
     git lfs install && \
     git remote add origin https://github.com/agni1311044/Rubiks-Cube-Solver.git && \
     git config --global --add safe.directory /app && \
+    git fetch origin main && \
+    git reset --hard origin/main && \
     git lfs pull
 
 # Install Flask (our web framework)
