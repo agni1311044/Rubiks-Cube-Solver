@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char* argv[]){
 //    RB3dArray object3DArray;
 //    RB1dArray object1dArray;
 //    RBBitboard objectBitboard;
@@ -227,17 +227,50 @@ int main(){
 
 // // IDA* SOLVER ---------------------------------------------------------------------------------------------------
     RBBitboard cube;
-    cube.print();
+    
+    // CHANGED: Read scramble from python/web if provided
+    if (argc > 1) {
+        string scramble = argv[1];
+        stringstream ss(scramble);
+        string move;
+        while (ss >> move) {
+            if (move == "U") cube.u();
+            else if (move == "U'") cube.uPrime();
+            else if (move == "U2") { cube.u(); cube.u(); }
+            else if (move == "D") cube.d();
+            else if (move == "D'") cube.dPrime();
+            else if (move == "D2") { cube.d(); cube.d(); }
+            else if (move == "L") cube.l();
+            else if (move == "L'") cube.lPrime();
+            else if (move == "L2") { cube.l(); cube.l(); }
+            else if (move == "R") cube.r();
+            else if (move == "R'") cube.rPrime();
+            else if (move == "R2") { cube.r(); cube.r(); }
+            else if (move == "F") cube.f();
+            else if (move == "F'") cube.fPrime();
+            else if (move == "F2") { cube.f(); cube.f(); }
+            else if (move == "B") cube.b();
+            else if (move == "B'") cube.bPrime();
+            else if (move == "B2") { cube.b(); cube.b(); }
+        }
+    } else {
+        vector<RubiksCube::MOVE> shuffle_moves = cube.randomShuffleCube(5);
+        for (auto move: shuffle_moves) cout << cube.getMove(move) << " ";
+        cout << "\n";
+    }
 
-    vector<RubiksCube::MOVE> shuffle_moves = cube.randomShuffleCube(5);
-    for (auto move: shuffle_moves) cout << cube.getMove(move) << " ";
-    cout << "\n";
     cube.print();
-    string s1="Database\\cornerDepth5V1.txt";
+    
+    // CHANGED: Use forward slash for Linux Render Server!
+    string s1="Database/cornerDepth5V1.txt";
+    
     IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube,s1);
     vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
+    
+    cout << "\nSolution Moves: ";
     for (auto move: solve_moves) cout << cube.getMove(move) << " ";
     cout << "\n";
+    
     idAstarSolver.rubiksCube.print();
 
 // // CornerPatternDatabase Testing ---------------------------------------------------------------------------------
