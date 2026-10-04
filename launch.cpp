@@ -262,16 +262,16 @@ int main(int argc, char* argv[]){
     cube.print();
     
     try {
-        string s1="Database/cornerDepth5V1.bin"; 
-        
-        IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube, s1); 
-        vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
+        // Swap out IDAStar for IDDFS to completely bypass the misaligned database
+        // Max depth is set to 8, which will solve short scrambles instantly!
+        IDDFSSolver<RBBitboard, HashBitboard> solver(cube, 8); 
+        vector<RubiksCube::MOVE> solve_moves = solver.solve();
         
         cout << "\nSolution Moves: ";
         for (auto move: solve_moves) cout << cube.getMove(move) << " ";
         cout << "\n\nSolved Cube:\n";
         
-        idAstarSolver.rubiksCube.print();
+        solver.rubiksCube.print();
     }
     catch (const char* msg) {
         cout << "\nC++ ERROR CAUGHT: " << msg << "\n";
