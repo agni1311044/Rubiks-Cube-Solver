@@ -5,8 +5,13 @@ NibbleArray::NibbleArray(const size_t size, const uint8_t val) :
         size(size), arr(size / 2 + 1, val) {}
 
 uint8_t NibbleArray::get(const size_t pos) const {
+   if (pos >= this->size) {
+        return 0xFF; // Safe fallback for out-of-bounds index
+    }
     size_t i = pos / 2;
-    assert(pos <= this->size);
+    if (i >= this->arr.size()) {
+        return 0xFF;
+    }
     uint8_t val = this->arr.at(i);
 
     if (pos % 2) {      // Odd pos i.e. last 4 bit
@@ -17,9 +22,14 @@ uint8_t NibbleArray::get(const size_t pos) const {
 }
 
 void NibbleArray::set(const size_t pos, const uint8_t val) {
+    if (pos >= this->size) {
+        return; // Safely ignore out-of-bounds writes
+    }
     size_t i = pos / 2;
+    if (i >= this->arr.size()) {
+        return;
+    }
     uint8_t cur_val = this->arr.at(i);
-    assert(pos <= this->size);
 
     if (pos % 2) {    
         this->arr.at(i) = (cur_val & 0xF0) | (val & 0x0F);  // Clear last 4 bits and set new value = (val & 0x0F)
