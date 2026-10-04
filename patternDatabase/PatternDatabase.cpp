@@ -68,7 +68,7 @@ void PatternDatabase::toFile(const string &filePath) const {  // func to write t
 
 bool PatternDatabase::fromFile(const string &filePath) {  // func to read the database from a file
 
-    ifstream reader(filePath, ios::in | ios::ate);
+    ifstream reader(filePath, ios::in | ios::binary | ios::ate);
 
     if(!reader.is_open()) {
         return false;
