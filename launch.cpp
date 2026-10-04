@@ -226,9 +226,9 @@ int main(int argc, char* argv[]){
 //    iddfsSolver.rubiksCube.print();
 
 // // IDA* SOLVER ---------------------------------------------------------------------------------------------------
-    RBBitboard cube;
+    RB3dArray cube; // CHANGED from RBBitboard to RB3dArray
     
-    // CHANGED: Read scramble from python/web if provided
+    // Read scramble from python/web if provided
     if (argc > 1) {
         string scramble = argv[1];
         stringstream ss(scramble);
@@ -261,12 +261,10 @@ int main(int argc, char* argv[]){
 
     cube.print();
     
-    // CHANGED: Use forward slash for Linux Render Server!
     try {
-        // Make sure this exact capitalization matches your GitHub folder!
-        string s1="Database/cornerDepth5V1.txt"; 
+        string s1="Database/cornerDepth5V1.bin"; 
         
-        IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube,s1);
+        IDAStarSolver<RB3dArray, Hash3d> idAstarSolver(cube, s1); // CHANGED to RB3dArray and Hash3d
         vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
         
         cout << "\nSolution Moves: ";
@@ -276,7 +274,6 @@ int main(int argc, char* argv[]){
         idAstarSolver.rubiksCube.print();
     }
     catch (const char* msg) {
-        // This will print the exact custom text error your code threw
         cout << "\nC++ ERROR CAUGHT: " << msg << "\n";
     }
     catch (...) {
