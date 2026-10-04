@@ -226,7 +226,7 @@ int main(int argc, char* argv[]){
 //    iddfsSolver.rubiksCube.print();
 
 // // IDA* SOLVER ---------------------------------------------------------------------------------------------------
-    RB3dArray cube; // CHANGED from RBBitboard to RB3dArray
+    RBBitboard cube; // CHANGED from RBBitboard to RB3dArray
     
     // Read scramble from python/web if provided
     if (argc > 1) {
@@ -264,7 +264,7 @@ int main(int argc, char* argv[]){
     try {
         string s1="Database/cornerDepth5V1.bin"; 
         
-        IDAStarSolver<RB3dArray, Hash3d> idAstarSolver(cube, s1); // CHANGED to RB3dArray and Hash3d
+        IDAStarSolver<RBBitboard, HashBitboard> idAstarSolver(cube, s1); 
         vector<RubiksCube::MOVE> solve_moves = idAstarSolver.solve();
         
         cout << "\nSolution Moves: ";
